@@ -13,11 +13,18 @@
 </template>
 
 <script>
-import AppLogo from "~/components/AppLogo.vue";
-
 export default {
-  components: {
-    AppLogo
+  async mounted() {
+    console.log(
+      // JSON.stringify() メソッドはある JavaScript の値を JSON 文字列に変換します。置き換え関数を指定して値を置き換えたり、置き換え配列を指定して指定されたプロパティのみを含むようにしたりすることができます。
+      JSON.stringify(
+        await this.$axios.$get(
+          "https://qiita.com/api/v2/items?query=tag:nuxt.js"
+        ),
+        true,
+        " "
+      )
+    );
   }
 };
 </script>
