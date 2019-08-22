@@ -5,8 +5,15 @@
       <ul>
         <li v-for="item in items" :key="item.id">
           <h4>
+            <span>[{{item.id}}]</span>
             <span>{{item.title}}</span>
-            <small>by {{item.user.id}}</small>
+<!--            <small>by {{item.user.id}}</small>-->
+            <small>
+              <span>by </span>
+              <nuxt-link :to="`/users/${item.user.id}`">
+                {{item.user.id}}
+              </nuxt-link>
+            </small>
           </h4>
           <div>{{item.body.slice(0, 130)}}.....</div>
           <p><a :href="item.url">{{item.url}}</a></p>
@@ -23,18 +30,6 @@
             return {
                 items
             }
-        },
-        async mounted() {
-            console.log(
-                // JSON.stringify() メソッドはある JavaScript の値を JSON 文字列に変換します。置き換え関数を指定して値を置き換えたり、置き換え配列を指定して指定されたプロパティのみを含むようにしたりすることができます。
-                JSON.stringify(
-                    await this.$axios.$get(
-                        "https://qiita.com/api/v2/items?query=tag:nuxt.js"
-                    ),
-                    true,
-                    " "
-                )
-            );
         }
     }
 </script>
