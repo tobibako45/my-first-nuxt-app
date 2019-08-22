@@ -7,7 +7,7 @@
           <h4>
             <span>[{{item.id}}]</span>
             <span>{{item.title}}</span>
-<!--            <small>by {{item.user.id}}</small>-->
+            <!--            <small>by {{item.user.id}}</small>-->
             <small>
               <span>by </span>
               <nuxt-link :to="`/users/${item.user.id}`">
@@ -24,16 +24,20 @@
 </template>
 
 <script>
+    import {mapGetters} from 'vuex'
+
     export default {
-        async asyncData({ app }){
-            const items = await app.$axios.$get('https://qiita.com/api/v2/items?query=tag:nuxt.js')
-            return {
-                items
+        async asyncData({store}) {
+            if (store.getters['items'].length) {
+                return
             }
+            await store.dispatch('fetchItems')
+        },
+        computed: {
+            ...mapGetters(['items'])
         }
     }
 </script>
-
 
 <style>
   .container {
