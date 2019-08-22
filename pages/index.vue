@@ -31,9 +31,13 @@
             if (store.getters['items'].length) {
                 return
             }
+
+            // ストアのactionsの関数を実行するには dispatch関数をVueのインスタンスで実行します。
             await store.dispatch('fetchItems')
         },
+        // vuexのstoreは基本的にcomputedと使う。
         computed: {
+            // mapGettersヘルパーはストア(index.js)のgetterをローカルの算出プロパティ(computed)にマッピングさせます:
             ...mapGetters(['items'])
         }
     }

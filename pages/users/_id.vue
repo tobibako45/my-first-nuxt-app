@@ -36,18 +36,26 @@
             }
 
             try {
+                // ストアのactionsの関数を実行するには dispatch関数をVueのインスタンスで実行します。
                 await store.dispatch('fetchUserInfo', {id: route.params.id})
             } catch (e) {
                 redirect('/') // 簡易的なエラー処理として404を想定してリダイレクト
             }
         },
+
+        // vuexのstoreは基本的にcomputedと使う。
         computed: {
             user() {
+                // Vue Router  遷移先のコンポーネントでパラメータを表示させるには $route を使ってルーターインスタンスにアクセスできるので、それを使います。
                 return this.users[this.$route.params.id]
             },
             items() {
                 return this.userItems[this.$route.params.id] || []
             },
+
+            // ゲッターを、「...」スプレッド演算子（object spread operator）を使って computed に組み込む
+
+            // mapGettersヘルパーはストア(index.js)のgetterをローカルの算出プロパティ(computed)にマッピングさせます:
             ...mapGetters(['users', 'userItems'])
         }
     }
