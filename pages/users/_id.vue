@@ -1,6 +1,8 @@
 <template>
   <div>
     <h3>{{user.id}}</h3>
+    <h3>followees_count: {{user.followees_count}}</h3>
+    <h3>followers_count: {{user.followers_count}}</h3>
     <img :src="user.profile_image_url" width="120" alt="">
     <p>{{user.description || 'No description'}}</p>
     <p>
@@ -25,12 +27,15 @@
     import {mapGetters} from 'vuex'
 
     export default {
+        // ヘッダー情報
         head() {
             return {
                 title: this.user.id
             }
         },
+        // asynDataはコンポーネントにデータをセットするとこ
         async asyncData({route, store, redirect}) {
+            // storeのgettersのuserオブジェクト
             if (store.getters['users'][route.params.id]) {
                 return
             }

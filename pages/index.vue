@@ -27,11 +27,18 @@
     import {mapGetters} from 'vuex'
 
     export default {
+        // asyncDataは、コンポーネントにデータをセットするために使う。
+        // 引数のstoreは、Vuexストアのインスタンス。vuexストアを設定している場合にのみ使用可能。
         async asyncData({store}) {
+
+            // ストアのgettersにあるitems
             if (store.getters['items'].length) {
                 return
             }
 
+            // ※actionsの関数を実行するには dispatch関数を Vue のインスタンスで実行します。
+            // Vue のインスタンス側からストアを参照し、ストアのdispactch関数を実行します。
+            // dispatch関数も commit関数と同じように実行する関数の名前を指定して実行します。
             // ストアのactionsの関数を実行するには dispatch関数をVueのインスタンスで実行します。
             await store.dispatch('fetchItems')
         },
