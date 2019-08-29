@@ -34,6 +34,13 @@ module.exports = {
     ]
   },
 
+  // ２つは同じ意味
+
+  // 文字列の場合
+  plugins: ['~/plugins/logger'],
+  // オブジェクトの場合
+  // plugins: [{src: '~/plugins/logger', ssr: true}],
+
   /*
    ** Build configuration
    */
